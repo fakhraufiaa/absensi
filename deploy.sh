@@ -1,16 +1,17 @@
 #!/bin/bash
 
-echo "🔧 Installing PHP dependencies..."
+# Install PHP dependencies
 composer install --optimize-autoloader --no-dev
 
-echo "⚙️ Caching config..."
+# Cache config & routes
+php artisan config:clear
 php artisan config:cache
+php artisan route:cache
+php artisan view:cache
 
-echo "🛠️ Running migrations..."
+# Run migrations
 php artisan migrate --force
 
-echo "📦 Installing Node dependencies..."
-npm install
-
-echo "🧱 Building assets with Vite..."
+# Build frontend
+npm ci
 npm run build
