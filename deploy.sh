@@ -1,17 +1,13 @@
 #!/bin/bash
+set -e
 
-# Install PHP dependencies
+echo "Running deployment script..."
+
 composer install --optimize-autoloader --no-dev
-
-# Cache config & routes
-php artisan config:clear
 php artisan config:cache
-php artisan route:cache
-php artisan view:cache
-
-# Run migrations
 php artisan migrate --force
 
-# Build frontend
-npm ci
+npm install
 npm run build
+
+echo "✅ Deployment selesai."
